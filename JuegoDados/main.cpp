@@ -1,21 +1,12 @@
 #include <iostream>
+#include "menu.h"
 #include <cstdlib>
-#include "funciones.h"
 #include <ctime>
-
-
 using namespace std;
-
 
 int main()
 {
-    srand(time(0));
-
-    string nombreJugador;
-
-    cout <<"Indicanos tu nombre Player1: "<<endl;
-    cin >> nombreJugador;
-
+    srand (time (0));
      int opcion;
       do {
               system ("cls");
@@ -29,11 +20,3 @@ int main()
       } while (opcion!=0);
 
 
-    unJugador(nombreJugador);
-    jugarBloqueadores();
-    jugarPlayer1();
-
-
-
-    return 0;
-}
