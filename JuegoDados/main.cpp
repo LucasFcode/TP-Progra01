@@ -15,6 +15,19 @@ int main()
     cout <<"Indicanos tu nombre Player1: "<<endl;
     cin >> nombreJugador;
 
+     int opcion;
+      do {
+              system ("cls");
+              opcion=menu_greed ( opcion ) ; //con esta funcion muestro el menu
+
+              seleccion_Opcion ( opcion );
+
+
+
+              system ("pause");
+      } while (opcion!=0);
+
+
     unJugador(nombreJugador);
     jugarBloqueadores();
     jugarPlayer1();
