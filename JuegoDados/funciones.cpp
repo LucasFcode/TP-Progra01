@@ -60,23 +60,6 @@ void mostrarPlayer1 (int vPlayer1 [], int cantidadP){
 } ///hasta aca jugada player1
 ///-----------------------------------------------------------------------------
 
-///los bloqueadores en cada jugada
-
-void SumatoriaDeDados(){
-
-        mostrarPlayer1();
-        mostrarBloqueadores();
-
-        if (mostrarPlayer1==mostrarBloqueadores){
-            cout <<"NAda";
-        }
-
-}
-
-
-
-
-
 
 
 void jugarBloqueadores (){
