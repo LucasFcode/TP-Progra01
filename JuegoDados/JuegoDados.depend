@@ -1,0 +1,15 @@
+# depslib dependency file v1.0
+1731214058 source:d:\codeblocks\proyectofinal\juegodados\funciones.cpp
+	<iostream>
+	"funciones.h"
+
+1731213859 d:\codeblocks\proyectofinal\juegodados\funciones.h
+	<string>
+
+1731209207 source:d:\codeblocks\proyectofinal\juegodados\bloqueadores.cpp
+
+1731213859 source:d:\codeblocks\proyectofinal\juegodados\main.cpp
+	<iostream>
+	"funciones.h"
+	<ctime>
+
