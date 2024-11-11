@@ -1,16 +1,17 @@
 #pragma once
 
+int tirar_dados();
 
-// funcion para mostrar el menu
-int menu_greed (int opcion ) ;
+// Obtener los bloqueadores
+void obtenerBloqueadores(string &nombre, int &bloqueador1, int &bloqueador2);
 
- // funcion para que elija opciones
+// Manejar una tirada de dados y calcular el puntaje de la ronda
+void manejarTirada(int dados[3][5], int i, int bloqueador1, int bloqueador2, int &puntajeRonda, int &dados_para_jugar);
 
- void seleccion_Opcion ( int opcion );
+// Función para manejar las rondas del juego
+void manejarRonda(int dados[3][5], int bloqueador1, int bloqueador2, int &puntaje_total);
 
- void modo_unjugador (int opcion);
+// Función para el modo de un jugador
+void modo_unjugador(int opcion);
 
-/*void mostrar_menu ( ) ;
-
-void modo_un_jugador();
-*/
+bool dadosIguales (int valorDados[], int numDados);

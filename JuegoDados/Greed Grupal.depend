@@ -1,0 +1,15 @@
+# depslib dependency file v1.0
+1731288318 source:c:\repos tp\greed grupal\greed grupal\main.cpp
+	<iostream>
+	"menu.h"
+	<cstdlib>
+	<ctime>
+
+1731288318 c:\repos tp\greed grupal\greed grupal\menu.h
+
+1731294046 source:c:\repos tp\greed grupal\greed grupal\funciones.cpp
+	<iostream>
+	<cstdlib>
+	<ctime>
+	"menu.h"
+
