@@ -1,22 +1,18 @@
 #include <iostream>
-#include "menu.h"
-#include <cstdlib>
+#include "funciones.h"
 #include <ctime>
+
+
 using namespace std;
+
 
 int main()
 {
-    srand (time (0));
-     int opcion;
-      do {
-              system ("cls");
-              opcion=menu_greed ( opcion ) ; //con esta funcion muestro el menu
+    srand(time(0));
 
-              seleccion_Opcion ( opcion );
+    partidaMultiplayer();
 
 
 
-              system ("pause");
-      } while (opcion!=0);
-
-
+    return 0;
+}
