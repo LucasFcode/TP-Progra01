@@ -15,7 +15,7 @@ int tirarDados(){
 
 
 /// tira primer jugador
-void tiradaPlayer1(int bloqueador1, int bloqueador2){
+int tiradaPlayer1(int bloqueador1, int bloqueador2){
 
 
         int i,respuesta,j;
@@ -90,7 +90,7 @@ void tiradaPlayer1(int bloqueador1, int bloqueador2){
                     cout<<"PUNTAJE TOTAL ACUMULADO= "<<puntajeTotal1<<endl;
 
 
-
+        return puntajeTotal1;
 
      }
 
@@ -98,7 +98,7 @@ void tiradaPlayer1(int bloqueador1, int bloqueador2){
 
 
 /// tira segundo jugador
-void tiradaPlayer2 (int bloqueador2_1, int bloqueador2_2){
+int tiradaPlayer2 (int bloqueador2_1, int bloqueador2_2){
 
             int i,respuesta;
 
@@ -173,7 +173,7 @@ void tiradaPlayer2 (int bloqueador2_1, int bloqueador2_2){
 
 
 
-
+           return puntajeTotal2;
 
     }
 
@@ -228,7 +228,7 @@ int bloqueador1, bloqueador2, bloqueador2_1, bloqueador2_2;
 
     cout << "Tira el jugador " << nombreJugador1 << endl;
 
-    tiradaPlayer1 (bloqueador1, bloqueador2);
+    puntosGanador1=tiradaPlayer1 (bloqueador1, bloqueador2);
 
 
 
@@ -241,14 +241,11 @@ int bloqueador1, bloqueador2, bloqueador2_1, bloqueador2_2;
     cout << " -----------------------------------------------"<<endl;
 
 
-    tiradaPlayer2 (bloqueador2_1, bloqueador2_2);
+    puntosGanador2=tiradaPlayer2 (bloqueador2_1, bloqueador2_2);
 
 
     }
     ///-----------------------------------------------------------------------------------------------------------------------------
-
-
-
 
 
     cout<<"puntos ganador 1  :"<<puntosGanador1<<endl<<endl;
