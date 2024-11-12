@@ -14,7 +14,9 @@ int tirarDados(){
     int puntajeTotal1=0;
 
 
-/// tira primer jugador
+/// FUNCION PARA TIRAR PRIMER JUGADOR 
+
+
 int tiradaPlayer1(int bloqueador1, int bloqueador2){
 
 
@@ -30,16 +32,21 @@ int tiradaPlayer1(int bloqueador1, int bloqueador2){
                   int puntajeRonda=0;
 
                   int tiradaRonda=0;
-                    //////////////////// PARA MANEJAR LAS TIRADAS Y LOS DESCUENTOS DE DADOS
+
+
+/// PARA MANEJAR LAS TIRADAS Y LOS DESCUENTOS DE DADOS
+    
     while (dadosXJugar>0 && sigue==true) {
 
      int dadospBloquear=0;
      int puntajeTirada=0;
 
-
+///MOSTRAMOS TODAS LAS TIRADAS DE DADOS EN CADA RONDA
+        
                       cout<<"TIRADA: "<<tiradaRonda+1<<endl<<endl<<endl;
 
-                      /// HACEMOS EL FOR PARA CONTROLAR EL PUNTAJE DE LAS TIRADAS Y BLOQUEAR
+    /// HACEMOS EL FOR PARA CONTROLAR EL PUNTAJE DE LAS TIRADAS Y BLOQUEAR
+        
                       for (j=0; j<dadosXJugar;j++) {
                       int dadosTirada=0;
                       dadosTirada=tirarDados();
@@ -58,9 +65,13 @@ int tiradaPlayer1(int bloqueador1, int bloqueador2){
                   dadosXJugar = dadosXJugar-dadospBloquear;
                   puntajeRonda=puntajeRonda+puntajeTirada;
 
+        ///MOSTRAMOS PUNTUACION
+
                 cout<<"DADOS QUE TE QUEDAN: " <<dadosXJugar<<endl;
                 cout<<"EL PUNTAJE DE LA TIRADA ES :  "<<puntajeTirada<<endl;
                 cout<<"EL PUNTAJE DE LA RONDA ES: "<<puntajeRonda<<endl;
+
+        ///SI QUIERE SEGUIR JUGANDO
 
 
                 if (dadosXJugar>0) {
