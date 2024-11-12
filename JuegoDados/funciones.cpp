@@ -268,3 +268,22 @@ int bloqueador1, bloqueador2, bloqueador2_1, bloqueador2_2;
     }
 
     }
+
+
+    //--------------ver si se le puede agregar mas texto descriptivo-----------------------//
+void guardarEstadistica(string nombreJugador, int puntajeMax) {
+    ofstream estadistica("estadistica.txt", ios::app);
+    estadistica << nombreJugador << " : " << puntajeMax << endl;
+    estadistica.close();
+}
+
+void mostrarEstadistica() {
+    ifstream estadistica("estadistica.txt");
+    string linea;
+    while (getline(estadistica, linea)) {
+        cout << linea << endl;
+    }
+    estadistica.close();
+
+}
+
