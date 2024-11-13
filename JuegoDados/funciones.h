@@ -9,5 +9,5 @@ void partidaMultiplayer();
 void guardarEstadistica(string nombreJugador, int puntajeMax);
 void mostrarEstadistica();
 void iniciarPartida(bool dosJugadores);
-void tiradaPlayer1();
-void tiradaPlayer2();
+void tiradaPlayer1(int bloqueador1,int bloqueador2);
+void tiradaPlayer2(int bloqueador1_2,int bloqueador2_2);
