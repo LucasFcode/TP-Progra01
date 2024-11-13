@@ -96,172 +96,120 @@ void iniciarPartida(bool dosJugadores)
 }
 
 /// FUNCION PARA TIRAR PRIMER JUGADOR
-
-int tiradaPlayer1(int bloqueador1, int bloqueador2)
-{
-
-    int i, respuesta, j;
-
-    int sumarRondas;
-
+int tiradaPlayer1(int bloqueador1, int bloqueador2) {
+    int respuesta;
     bool sigue = true;
     int dadosXJugar = 5;
     int dadospBloquear = 0;
     int puntajeRonda = 0;
-
     int tiradaRonda = 0;
 
-    /// PARA MANEJAR LAS TIRADAS Y LOS DESCUENTOS DE DADOS
-
-    while (dadosXJugar > 0 && sigue == true)
-    {
-
-        int dadospBloquear = 0;
+    // Manejo de tiradas y descuentos de dados
+    while (dadosXJugar > 0 && sigue) {
         int puntajeTirada = 0;
+        dadospBloquear = 0; // Reiniciar al inicio de cada ronda
 
-        /// MOSTRAMOS TODAS LAS TIRADAS DE DADOS EN CADA RONDA
+        cout << "TIRADA: " << tiradaRonda + 1 << endl << endl << endl;
 
-        cout << "TIRADA: " << tiradaRonda + 1 << endl
-             << endl
-             << endl;
-
-        /// HACEMOS EL FOR PARA CONTROLAR EL PUNTAJE DE LAS TIRADAS Y BLOQUEAR
-
-        for (j = 0; j < dadosXJugar; j++)
-        {
-            int dadosTirada = 0;
-            dadosTirada = tirarDados();
-
+        // Controlar el puntaje de las tiradas y bloquear dados
+        for (int j = 0; j < dadosXJugar; j++) {
+            int dadosTirada = tirarDados();
             cout << "N° DE DADO: " << dadosTirada << endl;
 
-            if (dadosTirada == bloqueador1 || dadosTirada == bloqueador2)
-            {
-                dadospBloquear++; /// contamos los dados que vamos bloqueando
-            }
-            else
-            {
-                puntajeTirada = puntajeTirada + dadosTirada;
+            if (dadosTirada == bloqueador1 || dadosTirada == bloqueador2) {
+                dadospBloquear++; // Contar los dados bloqueados
+            } else {
+                puntajeTirada += dadosTirada; // Sumar al puntaje de la tirada
             }
         }
 
-        dadosXJugar = dadosXJugar - dadospBloquear;
-        puntajeRonda = puntajeRonda + puntajeTirada;
+        dadosXJugar -= dadospBloquear;
+        puntajeRonda += puntajeTirada;
 
-        /// MOSTRAMOS PUNTUACION
-
+        // Mostrar puntuación
         cout << "DADOS QUE TE QUEDAN: " << dadosXJugar << endl;
         cout << "EL PUNTAJE DE LA TIRADA ES :  " << puntajeTirada << endl;
         cout << "EL PUNTAJE DE LA RONDA ES: " << puntajeRonda << endl;
 
-        /// SI QUIERE SEGUIR JUGANDO
-
-        if (dadosXJugar > 0)
-        {
-            cout << " QUERES SERGUIR JUGANDO, digita 1? " << endl;
+        // Preguntar si quiere seguir jugando
+        if (dadosXJugar > 0) {
+            cout << "QUERES SEGUIR JUGANDO, digita 1? " << endl;
             cin >> respuesta;
-        }
-        if (respuesta == 1)
-        {
-            sigue = true;
-        }
-        else
-        {
-            sigue = false;
+            sigue = (respuesta == 1);
         }
 
-        if (dadosXJugar <= 0)
-        {
+        if (dadosXJugar <= 0) {
             cout << "TE QUEDASTE SIN DADOS!" << endl;
             dadosXJugar = 0;
         }
 
         tiradaRonda++;
     }
-    sumarRondas = puntajeRonda;
-    puntajeTotal1 = puntajeTotal1 + sumarRondas;
+
+    // Asegúrate de que `puntajeTotal1` sea accesible o pásalo como parámetro
+    puntajeTotal1 += puntajeRonda;
     cout << "PUNTAJE TOTAL ACUMULADO= " << puntajeTotal1 << endl;
 
     return puntajeTotal1;
 }
 
-/// tira segundo jugador
-int tiradaPlayer2(int bloqueador2_1, int bloqueador2_2)
-{
-
-    int i, respuesta;
-
-    int sumarRondas;
-
+int tiradaPlayer2(int bloqueador2_1, int bloqueador2_2) {
+    int respuesta;
     bool sigue = true;
     int dadosXJugar = 5;
     int dadospBloquear = 0;
     int puntajeRonda2 = 0;
-
     int tiradaRonda = 0;
-    //////////////////// PARA MANEJAR LAS TIRADAS Y LOS DESCUENTOS DE DADOS
-    while (dadosXJugar > 0 && sigue == true)
-    {
 
+    // Manejo de tiradas y descuentos de dados
+    while (dadosXJugar > 0 && sigue) {
         int puntajeTirada = 0;
-        int dadospBloquear = 0;
+        dadospBloquear = 0; // Reiniciar al inicio de cada ronda
 
-        cout << "TIRADA: " << tiradaRonda + 1 << endl
-             << endl
-             << endl;
+        cout << "TIRADA: " << tiradaRonda + 1 << endl << endl << endl;
 
-        /// HACEMOS EL FOR PARA CONTROLAR EL PUNTAJE DE LAS TIRADAS Y BLOQUEAR
-        for (int j = 0; j < dadosXJugar; j++)
-        {
-            int dadosTirada = 0;
-            dadosTirada = tirarDados();
-
+        // Controlar el puntaje de las tiradas y bloquear dados
+        for (int j = 0; j < dadosXJugar; j++) {
+            int dadosTirada = tirarDados();
             cout << "N° DE DADO: " << dadosTirada << endl;
 
-            if (dadosTirada == bloqueador2_1 || dadosTirada == bloqueador2_2)
-            {
-                dadospBloquear++; /// contamos los dados que vamos bloqueando
-            }
-            else
-            {
-                puntajeTirada = puntajeTirada + dadosTirada;
+            if (dadosTirada == bloqueador2_1 || dadosTirada == bloqueador2_2) {
+                dadospBloquear++; // Contar los dados bloqueados
+            } else {
+                puntajeTirada += dadosTirada; // Sumar al puntaje de la tirada
             }
         }
 
-        dadosXJugar = dadosXJugar - dadospBloquear;
-        puntajeRonda2 = puntajeRonda2 + puntajeTirada;
+        dadosXJugar -= dadospBloquear;
+        puntajeRonda2 += puntajeTirada;
 
+        // Mostrar puntuación
         cout << "DADOS QUE TE QUEDAN: " << dadosXJugar << endl;
         cout << "EL PUNTAJE DE LA TIRADA ES :  " << puntajeTirada << endl;
         cout << "EL PUNTAJE DE LA RONDA ES: " << puntajeRonda2 << endl;
 
-        if (dadosXJugar > 0)
-        {
-            cout << " QUERES SERGUIR JUGANDO, digita 1? " << endl;
+        // Preguntar si quiere seguir jugando
+        if (dadosXJugar > 0) {
+            cout << "QUERES SEGUIR JUGANDO, digita 1? " << endl;
             cin >> respuesta;
-        }
-        if (respuesta == 1)
-        {
-            sigue = true;
-        }
-        else
-        {
-            sigue = false;
+            sigue = (respuesta == 1);
         }
 
-        if (dadosXJugar <= 0)
-        {
+        if (dadosXJugar <= 0) {
             cout << "TE QUEDASTE SIN DADOS!" << endl;
             dadosXJugar = 0;
         }
 
         tiradaRonda++;
     }
-    sumarRondas = puntajeRonda2;
-    puntajeTotal2 = puntajeTotal2 + sumarRondas;
+
+    // Asegúrate de que `puntajeTotal2` sea accesible o pásalo como parámetro
+    puntajeTotal2 += puntajeRonda2;
     cout << "PUNTAJE TOTAL ACUMULADO= " << puntajeTotal2 << endl;
 
     return puntajeTotal2;
 }
+
 
 //--------------ver si se le puede agregar mas texto descriptivo-----------------------//
 void guardarEstadistica(string nombreJugador, int puntajeMax)
