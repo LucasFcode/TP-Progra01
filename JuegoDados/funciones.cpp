@@ -203,7 +203,6 @@ int tiradaPlayer2(int bloqueador2_1, int bloqueador2_2) {
         tiradaRonda++;
     }
 
-    // Asegúrate de que `puntajeTotal2` sea accesible o pásalo como parámetro
     puntajeTotal2 += puntajeRonda2;
     cout << "PUNTAJE TOTAL ACUMULADO= " << puntajeTotal2 << endl;
 
