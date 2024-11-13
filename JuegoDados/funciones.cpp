@@ -84,7 +84,7 @@ void iniciarPartida(bool dosJugadores)
     }
     else
     {
-        cout << "Puntuación final de " << nombreJugador1 << " :: " << puntosGanador1 << endl;
+        cout << "Puntuacion final de " << nombreJugador1 << " :: " << puntosGanador1 << endl;
     }
 
     // Guardar estadísticas 
