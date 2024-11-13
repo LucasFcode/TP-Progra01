@@ -8,3 +8,6 @@ void saludar (string nombreJugador);
 void partidaMultiplayer();
 void guardarEstadistica(string nombreJugador, int puntajeMax);
 void mostrarEstadistica();
+void iniciarPartida(bool dosJugadores);
+void tiradaPlayer1();
+void tiradaPlayer2();
