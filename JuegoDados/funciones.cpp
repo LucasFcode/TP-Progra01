@@ -1,299 +1,457 @@
 #include <iostream>
 #include <cstdlib>
 #include <ctime>
-#include "rlutil.h"
-using namespace std;
+#include <cstdio>
 #include "funciones.h"
-#include <fstream>
+
+
+using namespace std;
+
+///// MEN├Ü //////
+int seleccionarOpcion() {
+    int opcion;
+
+    do {
+            system("cls");
+        cout << endl;
+        cout << "**********************************" << endl;
+         cout << endl;
+        cout << "--- M E N U   P R I N C I P A L ---" << endl;
+        cout << endl;
+        cout << "**********************************" << endl;
+        cout << endl;
+        cout << "1. Un Jugador" << endl;
+        cout << endl;
+        cout << "2. Dos Jugadores" << endl;
+        cout << endl;
+        cout << "3. Estadisticas" << endl;
+        cout << endl;
+        cout << "4. Creditos" << endl;
+        cout << endl;
+        cout << "5. Salir" << endl;
+        cout << endl;
+        cout << "Elija una opcion: " << endl;
+         cout << "------------------------" << endl;
+
+
+        if (!(cin >> opcion)) {
+            cout << "Entrada invalida. Por favor, ingrese un numero de la lista." << endl;
+            cin.clear();
+            cin.ignore(1000, '\n');
+        } else {
+            return opcion;
+        }
+
+
+
+    } while (true);
+}
+
+
+////// MENU ESTADISTICA ////////
+void estadisticaGeneral() {
+    int opcionEstadistica;
+
+    do {
+        cout << endl;
+        cout << "************" << endl;
+        cout << endl;
+        cout << "--- M E N U   E S T A D I S T I C A S ---" << endl;
+        cout << endl;
+        cout << "************" << endl;
+        cout << "1. Estadistica general singleplayer" << endl;
+        cout << endl;
+        cout << "2. Estadistica multiplayer" << endl;
+        cout << endl;
+        cout << "3. Volver al menu principal" << endl;
+        cout << endl;
+        cout << "Elija una opcion: " << endl;
+
+
+        if (!(cin >> opcionEstadistica)) {
+            cout << "Entrada invalida. Por favor, ingrese un numero de la lista." << endl;
+            cin.clear();
+            cin.ignore(1000, '\n');
+        } else {
+            switch (opcionEstadistica) {
+                case 1:
+                    estadisticaunJugador();
+                    break;
+                case 2:
+                    estadisticaMultiplayer();
+                    break;
+                case 3:
+                    return;
+                default:
+                    cout << "Elija una opcion valida: " << endl;
+                    break;
+            }
+        }
+
+    } while (true);
+}
+
+
+
+
+
+void ejecutarOpcion(int opcion) {
+    switch (opcion) {
+        case 1:
+            partidaUnJugador();
+            break;
+        case 2:
+            partidaMultiplayer();
+            break;
+        case 3:
+            estadisticaGeneral();
+            break;
+        case 4:
+            creditos();
+            break;
+        case 5:
+            cout << "Gracias por jugar!!!" << endl;
+            break;
+        default:
+            cout << "Elija una opcion valida: " << endl;
+            break;
+    }
+    }
+
+///// FINALIZA MEN├Ü //////
+
+
+
+
 
 
 
 
 // funcion para tirar los dados
 
-    void saludar(string nombreJugador){
+
+
+bool dadosIguales(int valorDados[], int numDados) { // FUNCI├ôN PARA LOS DADOS IGUALES
+
+    int dadoRef = valorDados[0]; // dadoRef guarda el valor del 1er dado
+    int contadorIguales = 0;
+
+        if (numDados == 1) {
+        return false;  //  Caso por si hay un solo dado
+    }
+
+    for (int i = 0; i < numDados; i++) {
+        if (dadoRef == valorDados[i]) {
+            contadorIguales++;
+        }
+    }
+
+    // Si todos los dados son iguales
+    return contadorIguales == numDados;
+}
+
+
+    int tirarDados(){
+    return rand ()%6+1;
+    }
+
+
+
+
+
+    int puntajeEst_UnJugador=0;
+    int estadisticaTirada=0;
+    int puntajeTotalJugador=0;
+
+
+
+
+/// tira primer jugador
+
+
+int tiradaUnJugador(int bloqueador1, int bloqueador2){
+
+
+
+        int mostrarbloqueradores=bloqueador1;
+        int mostrarbloqueradores22=bloqueador2;
+        int i,respuesta,j;
+        bool sigue=true;
+        int dadosXJugar=5;
+        int  dadospBloquear=0;
+        int tiradaRonda=0;
+        int tiradatotal=0;
+        int puntajeRonda=0;
+
+
+
+
+
+                  //// PARA MANEJAR LAS TIRADAS Y LOS DESCUENTOS DE DADOS
+
+
+    while (dadosXJugar>0 && sigue==true) {
+
+
+     int puntajeTirada=0;
+     int dadospBloquear=0;
+
+
+
+
+
+                      cout<<"TIRADA: "<<tiradaRonda+1<<endl<<endl<<endl;
+
+                      cout<<" NO TE OLVIDES!!! TUS BLOQUEADORES SON :"<<endl;
+                      cout<<mostrarbloqueradores<<" Y "<<mostrarbloqueradores22<<endl<<endl;
+
+                      /// HACEMOS EL FOR PARA CONTROLAR EL PUNTAJE DE LAS TIRADAS Y BLOQUEAR
+
+
+                      int dados[5];
+                      // HACEMOS EL FOR PARA CONTROLAR EL PUNTAJE DE LAS TIRADAS Y BLOQUEAR
+           for (j = 0; j < dadosXJugar; j++) {
+           dados[j] = tirarDados();  // Almacenamos el valor del dado en el arreglo
+
+         cout << "NUMERO DE DADO: " << dados[j] << endl;
+
+         if (dados[j] == bloqueador1 || dados[j] == bloqueador2) {
+            dadospBloquear++;
+         } else {
+            puntajeTirada += dados[j];
+        }
+    }
+
+    // Verificamos si todos los dados son iguales
+    if (dadosIguales(dados, dadosXJugar)) {
+        cout << "┬íTodos los dados son iguales! Tu puntaje se duplica." << endl;
+        puntajeTirada *= 2;
+        cout << "Nuevo puntaje de la tirada: " << puntajeTirada << endl;
+        sigue = true;
+    }
+
+                  dadosXJugar = dadosXJugar-dadospBloquear;
+                  puntajeRonda=puntajeRonda+puntajeTirada;
+
+
+                cout<<"DADOS QUE TE QUEDAN: " <<dadosXJugar<<endl;
+                cout<<"EL PUNTAJE DE LA TIRADA ES :  "<<puntajeTirada<<endl;
+                cout<<"EL PUNTAJE DE LA RONDA ES: "<<puntajeRonda<<endl;
+
+
+                 if (dadosXJugar>0) {
+                    cout<<" QUERES SERGUIR JUGANDO, digita 1? "<<endl;
+                    cin>>respuesta;
+                    }
+
+                   if (respuesta==1) {
+                  sigue=true;
+                    }
+                   else {
+                  sigue=false;
+                  }
+
+                if (dadosXJugar<=0 ) {
+                    cout<<"TE QUEDASTE SIN DADOS!"<<endl;
+                    dadosXJugar=0;
+
+
+
+                    }
+
+
+
+                tiradaRonda++;
+                tiradatotal++;
+                system("cls");
+
+
+
+
+     }
+
+                      puntajeTotalJugador= puntajeTotalJugador+puntajeRonda;
+                    puntajeEst_UnJugador=puntajeTotalJugador;
+                    estadisticaTirada=tiradatotal;
+                    cout<<"PUNTAJE TOTAL ACUMULADO DE RONDAS= "<<puntajeTotalJugador<<endl;
+
+                   return puntajeTotalJugador;
+
+
+
+     }
+
+///GUARDAR PUNTOS PARA ESTADISTICA
+
+
+     void estadisticaunJugador (){
+
+
+     cout<<"Tus puntos fueron "<<puntajeEst_UnJugador<<"  Felicitaciones!!!"<<endl;
+     cout<<"En total de tiradas "<<estadisticaTirada<<endl;
+     system("pause");
+
+
+}
+
+
+
+///saludar
+
+
+void saludar(string nombreJugador){
       cout<<endl;
       cout <<" Hola "<< nombreJugador <<" que tengas buena suerte "<<endl;
 
       cout <<"---------------------------------------"<<endl;
 }
 
+
+void modo_unjugador (string nombreJugador){
+    saludar(nombreJugador);}
+
+
+
+ ///----------------------------------------- funcion
+
+    void partidaUnJugador(){
+
+    string nombreJugador;
+
+    int puntosJugador;
+
+
+    cout <<"Indicanos tu nombre Player1: "<<endl;
+    cin >> nombreJugador;
+
+
+
+    modo_unjugador(nombreJugador);
+
+int rondas = 3;
+int bloqueador1, bloqueador2;
+
+
+        bloqueador1=tirarDados();
+
+        bloqueador2=tirarDados();
+        cout<< " TUS BLOQUEADORES SON : "<<endl;
+        cout<< "   "<<bloqueador1<<endl;
+        cout<< "   "<< bloqueador2<<endl;
+    cout << " ----------------------------------------"<<endl;
+
+
+
+for (int i = 0; i < rondas; i++) {
+
+
+
+    cout << "\nRonda " << i + 1 << endl<<endl;
+    cout << " ------------------------------------------"<<endl;
+
+
+    puntosJugador=tiradaUnJugador (bloqueador1, bloqueador2);
+
+
+
+
+    cout<<endl<<endl;
+
+
+    }
+
+
+    cout << "*********************************************"<<endl;
+
+    cout<<"BUEN JUEGO  "<<nombreJugador<< "!!!!"<<" TUS PUNTOS SON :: "<<puntosJugador<<endl<<endl;
+
+     cout << "*********************************************"<<endl;
+
+system("pause");
+    }
+
+///hacer una función que reciba un array por parametro y que retorne la cantidad de numeros impares que tiene
+
+
+
+
+
+///FUNCION PARA SALUDAR A CADA MULTIPLAYER
 void multiplayer (string nombreJugador){
     saludar(nombreJugador);}
 
 
 
-int tirar_dados ( ) {
 
-    return rand()  %6 +1 ;
-
-
-}
-// pedir nombre
-string pedir_nombre() {
-string nombre;
-rlutil::locate(39,10);
-cout<<"DIGITE SU NOMBRE: ";
-cin>>nombre;
-return nombre;
-}
-// calcular el puntaje de la tirada
-int calcular_puntaje_tirada (int dados[], int cantidad, int bloqueador_1, int bloqueador_2 ) {
-int puntaje=0,i;
-for (i=0;i<cantidad;i++) {
-    if ((dados[i]!=bloqueador_1)&&(dados[i]!=bloqueador_2)) {
-        puntaje=dados[i]+puntaje;
-    }
-}
-return puntaje;
-}
-
-// funcion para modo un jugador
-
-void modo_unjugador() {
-string nombre=pedir_nombre();
-int puntaje_total=0, i;
-int puntaje_ronda[3];
-system ("cls");
-int bloqueador_1=tirar_dados();
-int bloqueador_2=tirar_dados();
-rlutil::locate(39,12);
-cout<<"TU BLOQUEADOR 1 ES : "<<bloqueador_1<<endl;
-rlutil::locate(39,13);
-cout<<"TU BLOQUEADOR 2 ES : "<<bloqueador_2<<endl;
-
-for (i=0;i<3;i++) {
-     int dados_para_jugar=5;
-     puntaje_ronda[i]=0;
-     bool sigue=true;
-     rlutil::locate(30,9);
-     cout<<"RONDA: "<<i+1<<endl;
-     rlutil::locate(30,10);
-     cout<<"JUGADOR: "<<nombre<<endl;
-
-     while (dados_para_jugar>0 && sigue) {
-        int dados[5];
-        int dados_para_bloquear=0;
-
-        rlutil::locate(30,11);
-        cout <<"TIRADA: "<<endl;
-
-        for (int j=0;j<dados_para_jugar;j++ ) {
-            dados [j]= tirar_dados();
-            rlutil::locate(39,15+j);
-            cout<<"VALOR DEL DADO: "<<dados[j]<<endl;
-
-            if (dados [j]==bloqueador_1|| dados[j]==bloqueador_2) {
-                dados_para_bloquear++;
-            }
-        }
-        cout<<endl;
-        int puntaje_tirada;
-        puntaje_tirada=calcular_puntaje_tirada(dados,dados_para_jugar,bloqueador_1,bloqueador_2);
-
-        dados_para_jugar=dados_para_jugar-dados_para_bloquear; //reducimos los dados disponibles
-        rlutil::locate(39,21);
-        cout<<"DADOS DISPONIBLES PARA JUGAR: "<<dados_para_jugar<<endl;
-        puntaje_ronda[i] = puntaje_ronda[i]+ puntaje_tirada;
-        rlutil::locate(39,22);
-        cout<<"EL PUNTAJE DE ESTA TIRADA FUE: " <<puntaje_tirada<<endl;
-        rlutil::locate(39,23);
-        cout<<"TENES ACUMULADO EN ESTA RONDA: "<<puntaje_ronda[i]<<endl;
-
-
-
-        if (dados_para_jugar>0)  {
-                rlutil::locate(39,27);
-        cout<<"QUERES SERGUIR JUGANDO?- 1 para si otro numero para no"<<endl;
-        int respuesta;
-        cin>>respuesta;
-            if (respuesta==1) {
-            sigue=true;
-        }
-        }
-
-        else {
-                rlutil::locate(39,22);
-            cout<<"TE QUEDASTE SIN DADOS"<<endl;
-            puntaje_ronda[i] = 0 ;
-        }
-     }
-
-              puntaje_total=puntaje_total+puntaje_ronda[i];
-}
-rlutil::locate(39,23);
-cout<<"PUNTAJE TOTAL FINAL: "<<puntaje_total<<endl;
-}
+    int tiradatotal1=0;
+    int tiradatotal2=0;
+    string nombreatraer;
+    string nombreatraer2;
+    int puntajeEstadistica1;
+    int puntajeEstadistica2;
 
 
 
 
+/// FUNCION PARA tiraR primer jugador
 
-/*void seleccion_Opcion ( int opcion ) {
+int tiradaPlayer1(int bloqueador1, int bloqueador2, string nombreJugador1){
 
-      switch (opcion) {
-        case  1:
-            system ("cls");
-            cout<<"BIENVENIDO AL JUEGO"<<endl;
-              modo_unjugador (opcion) ;
-           break ;
-
-        case 2:
-            break;
-
-        case 0:
-            cout<<"FIN, GRACIAS POR JUGAR"<<endl;
-      }
-
-
-
-
- }*/
-
-//// MENU GREED CON RLUTIL
-        void Limpiar_menu() {
-    for (int i = 10; i <= 15; i++) {
-        rlutil::locate(38, i);
-        cout << " "; // Borra el cursor
-        rlutil::locate(39, i);
-        cout << "           "; // Borra el texto del men·
-    }
-}
-
-///// DIBUJAR MENU
-//Funcion para Dibujar el menu
- void Dibujar_menu (int y) {
-rlutil::cls();
-
-        rlutil::locate(39,10);
-        cout<<"MODO 1  JUGADOR"<<endl;
-
-        rlutil::locate(39,11);
-        cout<<"MODO 2  JUGADORES"<<endl;
-
-        rlutil::locate(39,12);
-        cout<<"ESTADISTICAS"<<endl;
-
-        rlutil::locate(39,13);
-        cout<<"CREDITOS"<<endl;
-
-        rlutil::locate(39,14);
-        cout<<"SALIR"<<endl;
-         rlutil::locate(37,10 + y); //para mostrar el cursor
-        cout<<char(175)<<endl;
-
-        }
-
-/////////////////////// PARA DIBUJAR EL TITULO
-//Funcion para dibujar el titulo principal
-void Dibujar_titulo () {
-        int xcolumna;
-    rlutil::setColor(rlutil::YELLOW);
-    rlutil::locate(1,2);
-    cout<<char(201);
-    rlutil::locate(1,3);
-    cout<<char(186);
-    rlutil::locate(1,4);
-    cout<<char(200);
-
-    for(xcolumna=2;xcolumna<=100;xcolumna++)
-    {
-        rlutil::locate(xcolumna,2);
-        cout<<char(205);
-        rlutil::locate(xcolumna,4);
-        cout<<char(205);
-        rlutil::msleep(15); // con este modificamos la velocidad del trazado del borde
-
-    }
-
-    rlutil::locate(100,2);
-    cout<<char(187);
-    rlutil::locate(100,3);
-    cout<<char(186);
-    rlutil::locate(100,4);
-    cout<<char(188);
-
-    char vtitulo[]="* * * G R E E D  *  * ";
-    int vlongitud;
-    vlongitud = strlen(vtitulo);
-    int vcentro=(((100-vlongitud)/2)+1);
-
-
-    for(xcolumna=2;xcolumna<=vcentro;xcolumna++)
-    {
-        rlutil::setColor(rand()%16);
-        rlutil::locate(xcolumna,3);
-        if(xcolumna-1!=1)
-        {
-            rlutil::locate(xcolumna-1,3);
-            cout<<" ";
-        }
-        cout<<(vtitulo);
-        rlutil::msleep(10); // velocidad con la que desplazo el texto
-
-    }
-
-    rlutil::locate(12,12);
-    rlutil::msleep(1000); // la pausa final
-
-    }
-
-    #include <iostream>
-#include "funciones.h"
-
-using namespace std;
-
-
-
-int tirarDados(){
-    return rand ()%6+1;
-    }
-
-
-    int puntajeTotal2=0;
-    int puntajeTotal1=0;
-
-
-/// tira primer jugador
-int tiradaPlayer1(int bloqueador1, int bloqueador2){
-
-
+         int puntajeTotal1=0;
+        int mostrarbloquerador1=bloqueador1;
+        int mostrarbloquerador1_1=bloqueador2;
         int i,respuesta,j;
-
         int sumarRondas;
+        bool sigue=true;
+        int dadosXJugar=5;
+        int  dadospBloquear=0;
+        int puntajeRonda=0;
+        int tiradaRonda=0;
 
 
+/// PARA MANEJAR LAS TIRADAS Y LOS DESCUENTOS DE DADOS
 
-     bool sigue=true;
-                 int dadosXJugar=5;
-                  int  dadospBloquear=0;
-                  int puntajeRonda=0;
 
-                  int tiradaRonda=0;
-                    //////////////////// PARA MANEJAR LAS TIRADAS Y LOS DESCUENTOS DE DADOS
     while (dadosXJugar>0 && sigue==true) {
+
 
      int dadospBloquear=0;
      int puntajeTirada=0;
 
-
+                      cout << "Tira el jugador " << nombreJugador1 << endl;
                       cout<<"TIRADA: "<<tiradaRonda+1<<endl<<endl<<endl;
 
-                      /// HACEMOS EL FOR PARA CONTROLAR EL PUNTAJE DE LAS TIRADAS Y BLOQUEAR
-                      for (j=0; j<dadosXJugar;j++) {
-                      int dadosTirada=0;
-                      dadosTirada=tirarDados();
+                      cout<<" NO TE OLVIDES!!! TUS BLOQUEADORES SON :"<<endl;
+                      cout<<mostrarbloquerador1<<" Y "<<mostrarbloquerador1_1<<endl<<endl;
 
-                     cout<<"N° DE DADO: "<<dadosTirada<<endl;
 
-                      if (dadosTirada==bloqueador1||dadosTirada==bloqueador2) {
-                      dadospBloquear++; /// contamos los dados que vamos bloqueando
-                       }
-                       else {
-                        puntajeTirada=puntajeTirada+dadosTirada;
-                       }
 
-                }
+/// HACEMOS EL FOR PARA CONTROLAR EL PUNTAJE DE LAS TIRADAS Y BLOQUEAR
+
+                      int dados[5];
+
+/// HACEMOS EL FOR PARA CONTROLAR EL PUNTAJE DE LAS TIRADAS Y BLOQUEAR
+
+  for (j = 0; j < dadosXJugar; j++) {
+        dados[j] = tirarDados();  // Almacenamos el valor del dado en el arreglo
+
+        cout << "NUMERO DE DADO: " << dados[j] << endl;
+
+        if (dados[j] == bloqueador1 || dados[j] == bloqueador2) {
+            dadospBloquear++;
+        } else {
+            puntajeTirada += dados[j];
+        }
+    }
+
+/// Verificamos si todos los dados son iguales
+
+    if (dadosIguales(dados, dadosXJugar)) {
+        cout << "¡Todos los dados son iguales! Tu puntaje se duplica." << endl;
+        puntajeTirada *= 2;
+        cout << "Nuevo puntaje de la tirada: " << puntajeTirada << endl;
+        sigue = true;
+    }
 
                   dadosXJugar = dadosXJugar-dadospBloquear;
                   puntajeRonda=puntajeRonda+puntajeTirada;
@@ -323,24 +481,40 @@ int tiradaPlayer1(int bloqueador1, int bloqueador2){
                     }
 
                 tiradaRonda++;
+                tiradatotal1++;
+                system("cls");
+                nombreatraer=nombreJugador1;
+
+
 
      }
                     sumarRondas=puntajeRonda;
                     puntajeTotal1= puntajeTotal1+sumarRondas;
+                    puntajeEstadistica1=puntajeTotal1;
                     cout<<"PUNTAJE TOTAL ACUMULADO= "<<puntajeTotal1<<endl;
 
                    return puntajeTotal1;
 
 
+
      }
 
 
 
 
-/// tira segundo jugador
-int tiradaPlayer2 (int bloqueador2_1, int bloqueador2_2){
 
-            int i,respuesta;
+
+
+/// TIRA SEGUNDO JUGADOR
+
+
+int tiradaPlayer2 (int bloqueador2_1, int bloqueador2_2,string nombreJugador2){
+
+
+         int puntajeTotal2=0;
+        int mostrarbloquerador2=bloqueador2_1;
+        int mostrarbloquerador2_1=bloqueador2_2;
+            int respuesta;
 
             int sumarRondas;
 
@@ -351,31 +525,42 @@ int tiradaPlayer2 (int bloqueador2_1, int bloqueador2_2){
                   int puntajeRonda2=0;
 
                    int tiradaRonda=0;
-                    //////////////////// PARA MANEJAR LAS TIRADAS Y LOS DESCUENTOS DE DADOS
+
+
+/// PARA MANEJAR LAS TIRADAS Y LOS DESCUENTOS DE DADOS
+
+
+
     while (dadosXJugar>0 && sigue==true) {
+
 
                       int puntajeTirada=0;
                       int dadospBloquear=0;
 
 
+                      cout << "Tira el jugador " << nombreJugador2 << endl;
 
                       cout<<"TIRADA: "<<tiradaRonda+1<<endl<<endl<<endl;
 
-                      /// HACEMOS EL FOR PARA CONTROLAR EL PUNTAJE DE LAS TIRADAS Y BLOQUEAR
-                      for ( int j=0; j<dadosXJugar;j++) {
-                      int dadosTirada=0;
-                      dadosTirada=tirarDados();
+                      cout<<" NO TE OLVIDES!!! TUS BLOQUEADORES SON :"<<endl<<endl;
+                      cout<<mostrarbloquerador2<<" Y "<<mostrarbloquerador2_1<<endl;
 
-                     cout<<"N° DE DADO: "<<dadosTirada<<endl;
 
-                      if (dadosTirada==bloqueador2_1||dadosTirada==bloqueador2_2) {
-                      dadospBloquear++; /// contamos los dados que vamos bloqueando
-                       }
-                       else {
-                        puntajeTirada=puntajeTirada+dadosTirada;
-                       }
+/// HACEMOS EL FOR PARA CONTROLAR EL PUNTAJE DE LAS TIRADAS Y BLOQUEAR
 
-                }
+                                 int dados[5];
+
+         for ( int j = 0; j < dadosXJugar; j++) {
+        dados[j] = tirarDados();  // Almacenamos el valor del dado en el arreglo
+
+        cout << "NUMERO DE DADO: " << dados[j] << endl;
+
+        if (dados[j] == bloqueador2_1 || dados[j] == bloqueador2_2) {
+            dadospBloquear++;
+        } else {
+            puntajeTirada += dados[j];
+        }
+    }
 
                   dadosXJugar = dadosXJugar-dadospBloquear;
                   puntajeRonda2=puntajeRonda2+puntajeTirada;
@@ -405,10 +590,15 @@ int tiradaPlayer2 (int bloqueador2_1, int bloqueador2_2){
 
 
                 tiradaRonda++;
+                tiradatotal2++;
+                system("cls");
+                nombreatraer2=nombreJugador2;
+
 
      }
                     sumarRondas=puntajeRonda2;
                     puntajeTotal2= puntajeTotal2+sumarRondas;
+                    puntajeEstadistica2=puntajeTotal2;
                     cout<<"PUNTAJE TOTAL ACUMULADO= "<<puntajeTotal2<<endl;
 
 
@@ -416,6 +606,8 @@ int tiradaPlayer2 (int bloqueador2_1, int bloqueador2_2){
 
 
     }
+
+
 
 
 
@@ -431,8 +623,11 @@ void partidaMultiplayer(){
     int puntosGanador1, puntosGanador2;
 
 
+
     cout <<"Indicanos tu nombre Player1: "<<endl;
     cin >> nombreJugador1;
+
+
 
 
 multiplayer(nombreJugador1);
@@ -463,12 +658,12 @@ int bloqueador1, bloqueador2, bloqueador2_1, bloqueador2_2;
 
     for (int i = 0; i < rondas; i++) {
 
+
     cout << "\nRonda " << i + 1 << endl<<endl;
     cout << " -----------------------------------------------"<<endl;
 
-    cout << "Tira el jugador " << nombreJugador1 << endl;
 
-    puntosGanador1=tiradaPlayer1 (bloqueador1, bloqueador2);
+    puntosGanador1=tiradaPlayer1 (bloqueador1, bloqueador2, nombreJugador1);
 
 
 
@@ -476,12 +671,11 @@ int bloqueador1, bloqueador2, bloqueador2_1, bloqueador2_2;
     cout<<endl<<endl;
 
 
-    cout << "Tira el jugador " << nombreJugador2 << endl;
     cout << "\nRonda " << i + 1 << endl<<endl;
     cout << " -----------------------------------------------"<<endl;
 
 
-    puntosGanador2=tiradaPlayer2 (bloqueador2_1, bloqueador2_2);
+    puntosGanador2=tiradaPlayer2 (bloqueador2_1, bloqueador2_2, nombreJugador2);
 
 
     }
@@ -489,8 +683,8 @@ int bloqueador1, bloqueador2, bloqueador2_1, bloqueador2_2;
 
     cout << "*********************************************"<<endl;
 
-    cout<<"puntos ganador 1  :"<<nombreJugador1<<"  "<<puntosGanador1<<endl<<endl;
-    cout<<"puntos ganador 2  :"<<nombreJugador2<<"  "<<puntosGanador2<<endl<<endl;
+    cout<<"Puntos de "<<nombreJugador1<<" : "<<puntosGanador1<<endl<<endl;
+    cout<<"Puntos de "<<nombreJugador2<<" : "<<puntosGanador2<<endl<<endl;
 
      cout << "*********************************************"<<endl;
 
@@ -498,13 +692,47 @@ int bloqueador1, bloqueador2, bloqueador2_1, bloqueador2_2;
     if (puntosGanador1>puntosGanador2){
         cout<<endl<<endl;
         cout<<"---------------------------------------------"<<endl;
-        cout <<" Victoria de: "<<nombreJugador1<<endl;
+        cout <<" Victoria de "<<nombreJugador1<<endl;
     }
     else {
         cout<<endl<<endl;
         cout<<"---------------------------------------------"<<endl;
-        cout<<" Victoria de: "<<nombreJugador2<<endl;
+        cout<<" Victoria de "<<nombreJugador2<<endl;
     }
 
+
+    system("pause");
+
     }
+
+
+
+
+    void creditos (){
+
+      cout<<endl;
+      cout <<" Carla Joaquina Andrade LEG: 29676"<<endl;
+      cout <<" Emmanuel Sansberro LEG: 31704 "<<endl;
+      cout <<" Gustavo Ruiz LEG: 26112 "<<endl;
+      cout <<" Lucas Flores LEG: 31626 "<<endl;
+      system("pause");
+
+
+    }
+
+
+    void estadisticaMultiplayer (){
+    cout<<"Jugador 1 "<<nombreatraer<<endl;
+     cout<<"Tus puntos fueron "<<puntajeEstadistica1<<" Felicitaciones!!!"<<endl<<endl;
+     cout<<"En Tiradas "<<tiradatotal1<<endl<<endl<<endl;
+
+
+     cout<<"Jugador 2"<< nombreatraer2<<endl;
+     cout<<"Tus puntos fueron "<<puntajeEstadistica2<< " Felicitaciones!!!"<<endl<<endl;
+     cout<<"En Tiradas "<<tiradatotal2<<endl;
+     system("pause");
+
+
+
+}
 
